@@ -1,5 +1,5 @@
 /*
- *  test/initialize.js
+ *  test/read.js
  *
  *  David Janes
  *  IOTDB.org
