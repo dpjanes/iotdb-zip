@@ -6,7 +6,6 @@
 #   2017-11-06
 #
 
-exit 0
 PACKAGE=iotdb-zip
 DIST_ROOT=/var/tmp/.dist.$$
 
@@ -34,7 +33,7 @@ echo "=================="
         --exclude "node_modules" \
         README.md LICENSE \
         package.json \
-        lib/* \
+        lib/*.js \
         index.js \
         |
     ( cd "${NPM_DST}" && tar xvf - && npm publish ) || exit 1
