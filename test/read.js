@@ -152,5 +152,20 @@ describe("read", function() {
         })
     })
     describe("read.json", function() {
+        it("read JSON text file", function(done) {
+            const filename = "contents/a.json";
+
+            _.promise.make()
+                .then(zip.initialize.open.p(zipfile))
+                .then(sd => _.d.add(sd, "path", filename))
+                .then(zip.read.json)
+                .then(_.promise.block(sd => {
+                    assert.ok(_.is.JSON(sd.json))
+                    assert.ok(sd.exists)
+                    assert.deepEqual(sd.json, JSON.parse(documents[filename].toString("utf-8")))
+                }))
+                .then(_.promise.done(done))
+                .catch(done)
+        })
     })
 })
