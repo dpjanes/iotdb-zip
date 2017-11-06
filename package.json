@@ -4,7 +4,7 @@
         "url": "https://github.com/dpjanes/iotdb-zip/issues"
     }, 
     "dependencies": {
-        "iotdb-helpers": "~3.1.10", 
+        "iotdb-helpers": "~3.1.11", 
         "jszip": "~3.1.4", 
         "mime": "~2.0.3"
     }, 
@@ -33,5 +33,5 @@
     "scripts": {
         "test": "grunt"
     }, 
-    "version": "0.0.1"
+    "version": "0.0.2"
 }
