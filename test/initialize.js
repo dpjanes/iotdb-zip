@@ -27,9 +27,10 @@ const fs = require("iotdb-fs")
 const zip = require("..")
 
 const assert = require("assert");
+const path = require("path");
 
 describe("initialize", function() {
-    const zipfile = "./data/sample.zip";
+    const zipfile = path.join(__dirname, "./data/sample.zip");
     const filenames = [
         "contents/a.json",
         "contents/icon.png",
