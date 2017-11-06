@@ -23,22 +23,70 @@
 "use strict";
 
 const _ = require("iotdb-helpers")
+const fs = require("iotdb-fs")
 const zip = require("..")
 
+const assert = require("assert");
+
 describe("initialize", function() {
+    const zipfile = "./data/sample.zip";
+    const filenames = [
+        "contents/a.json",
+        "contents/icon.png",
+        "contents/unicode.txt"
+    ];
+
     describe("initialize", function() {
-        describe("works", function() {
-            it("works", function() {
-                
-            })
+        it("no parameters - works", function(done) {
+            _.promise.make()
+                .then(zip.initialize)
+                .then(_.promise.block(sd => {
+                    assert.ok(sd.zip)
+                    assert.deepEqual(sd.zip.files, {})
+                }))
+                .then(_.promise.done(done))
+                .catch(done)
         })
     })
     describe("initialize.load", function() {
-        describe("works", function() {
+        it("document parameter - works", function(done) {
+            _.promise.make({
+                path: zipfile,
+            })
+                .then(fs.read.buffer)
+                .then(zip.initialize.load)
+                .then(_.promise.block(sd => {
+                    assert.ok(sd.zip)
+                    assert.deepEqual(_.keys(sd.zip.files).sort(), filenames)
+                }))
+                .then(_.promise.done(done))
+                .catch(done)
         })
     })
     describe("initialize.open", function() {
-        describe("works", function() {
+        it("path parameter - works", function(done) {
+            _.promise.make({
+                path: zipfile,
+            })
+                .then(zip.initialize.open)
+                .then(_.promise.block(sd => {
+                    assert.ok(sd.zip)
+                    assert.deepEqual(_.keys(sd.zip.files).sort(), filenames)
+                }))
+                .then(_.promise.done(done))
+                .catch(done)
+        })
+    })
+    describe("initialize.open.p", function() {
+        it("path parameter - works", function(done) {
+            _.promise.make()
+                .then(zip.initialize.open.p(zipfile))
+                .then(_.promise.block(sd => {
+                    assert.ok(sd.zip)
+                    assert.deepEqual(_.keys(sd.zip.files).sort(), filenames)
+                }))
+                .then(_.promise.done(done))
+                .catch(done)
         })
     })
 })

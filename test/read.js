@@ -25,19 +25,20 @@
 const _ = require("iotdb-helpers")
 const zip = require("..")
 
-describe("initialize", function() {
-    describe("initialize", function() {
+const assert = require("assert");
+
+describe("read", function() {
+    describe("read", function() {
         describe("works", function() {
             it("works", function() {
-                
             })
         })
     })
-    describe("initialize.load", function() {
+    describe("read.utf8", function() {
         describe("works", function() {
         })
     })
-    describe("initialize.open", function() {
+    describe("read.json", function() {
         describe("works", function() {
         })
     })
