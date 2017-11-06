@@ -54,6 +54,21 @@ describe("read", function() {
     })
 
     describe("read", function() {
+        it("read BINARY - works", function(done) {
+            const filename = "contents/icon.png";
+
+            _.promise.make()
+                .then(zip.initialize.open.p(zipfile))
+                .then(sd => _.d.add(sd, "path", filename))
+                .then(zip.read)
+                .then(_.promise.block(sd => {
+                    assert.ok(_.is.Buffer(sd.document))
+                    assert.ok(sd.exists)
+                    assert.deepEqual(sd.document, documents[filename]);
+                }))
+                .then(_.promise.done(done))
+                .catch(done)
+        })
     })
     describe("read.utf8", function() {
         it("read utf8 text file - works", function(done) {
