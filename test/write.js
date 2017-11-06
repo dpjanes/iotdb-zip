@@ -66,7 +66,7 @@ describe("read", function() {
                 .then(zip.write)
                 .then(_.promise.block(sd => {
                     assert.ok(sd.zip)
-                    assert.deepEqual(_.keys(sd.zip.files).filter(name => !name.endsWith("/")), [ filename ])
+                    assert.deepEqual(_.keys(sd.zip.files), [ filename ])
                 }))
                 .then(zip.read)
                 .then(_.promise.block(sd => {
@@ -90,7 +90,7 @@ describe("read", function() {
                 .then(zip.write)
                 .then(_.promise.block(sd => {
                     assert.ok(sd.zip)
-                    assert.deepEqual(_.keys(sd.zip.files).filter(name => !name.endsWith("/")), [ filename ])
+                    assert.deepEqual(_.keys(sd.zip.files), [ filename ])
                 }))
                 .then(zip.read.buffer)
                 .then(_.promise.block(sd => {
@@ -115,7 +115,7 @@ describe("read", function() {
                 .then(zip.write.utf8)
                 .then(_.promise.block(sd => {
                     assert.ok(sd.zip)
-                    assert.deepEqual(_.keys(sd.zip.files).filter(name => !name.endsWith("/")), [ filename ])
+                    assert.deepEqual(_.keys(sd.zip.files), [ filename ])
                 }))
                 .then(zip.read.utf8)
                 .then(_.promise.block(sd => {
