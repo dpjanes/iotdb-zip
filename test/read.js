@@ -89,26 +89,19 @@ describe("read", function() {
                 .catch(done)
         })
         it("read BINARY text as utf8 - works, half-assedly", function(done) {
-            const filename = "contents/icon.png".
+            const filename = "contents/icon.png";
 
-            console.log("HERE:0", _.promise)
-            /*
             _.promise.make()
-                .then(_.promise.log("A"))
                 .then(zip.initialize.open.p(zipfile))
-                .then(_.promise.log("B"))
                 .then(sd => _.d.add(sd, "path", filename))
-                .then(_.promise.log("C"))
                 .then(zip.read.utf8)
-                .then(_.promise.log("D"))
                 .then(_.promise.block(sd => {
-                    // assert.ok(_.is.String(sd.document))
-                    // assert.ok(sd.exists)
-                    // assert.deepEqual(sd.document, documents[filename].toString("utf-8"))
+                    assert.ok(_.is.String(sd.document))
+                    assert.ok(sd.exists)
+                    assert.deepEqual(sd.document, documents[filename].toString("utf-8"))
                 }))
                 .then(_.promise.done(done))
                 .catch(done)
-            */
         })
     })
     describe("read.json", function() {
