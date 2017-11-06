@@ -69,6 +69,21 @@ describe("read", function() {
                 .then(_.promise.done(done))
                 .catch(done)
         })
+        it("read unicode - works", function(done) {
+            const filename = "contents/unicode.txt";
+
+            _.promise.make()
+                .then(zip.initialize.open.p(zipfile))
+                .then(sd => _.d.add(sd, "path", filename))
+                .then(zip.read)
+                .then(_.promise.block(sd => {
+                    assert.ok(_.is.Buffer(sd.document))
+                    assert.ok(sd.exists)
+                    assert.deepEqual(sd.document, documents[filename]);
+                }))
+                .then(_.promise.done(done))
+                .catch(done)
+        })
     })
     describe("read.buffer", function() {
         it("read BINARY - works", function(done) {
