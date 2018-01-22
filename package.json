@@ -4,7 +4,7 @@
         "url": "https://github.com/dpjanes/iotdb-zip/issues"
     }, 
     "dependencies": {
-        "iotdb-helpers": "~3.1.19", 
+        "iotdb-helpers": "~3.2.2", 
         "jszip": "~3.1.5", 
         "mime": "~1.6.0"
     }, 
@@ -13,7 +13,7 @@
         "grunt": "~1.0.1", 
         "grunt-contrib-jshint": "~1.1.0", 
         "grunt-contrib-nodeunit": "~1.0.0", 
-        "grunt-contrib-uglify": "~3.2.1", 
+        "grunt-contrib-uglify": "~3.3.0", 
         "grunt-contrib-watch": "~1.0.0", 
         "grunt-jsbeautifier": "~0.2.13", 
         "jshint-stylish": "~2.2.1", 
@@ -33,5 +33,5 @@
     "scripts": {
         "test": "grunt"
     }, 
-    "version": "0.0.4"
+    "version": "0.0.5"
 }
