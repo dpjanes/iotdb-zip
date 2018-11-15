@@ -133,6 +133,7 @@ describe("read", function() {
                 .then(_.promise.done(done))
                 .catch(done)
         })
+        /*
         it("read utf8 text file - works with otherwise", function(done) {
             const filename = "contents/DOESNOTEXIST";
             const contents = "Hello World";
@@ -150,6 +151,7 @@ describe("read", function() {
                 .then(_.promise.done(done))
                 .catch(done)
         })
+        */
         it("read BINARY text as utf8 - works, half-assedly", function(done) {
             const filename = "contents/icon.png";
 
