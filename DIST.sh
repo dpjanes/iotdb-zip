@@ -35,6 +35,7 @@ echo "=================="
         package.json \
         lib/*.js \
         index.js \
+        logger.js \
         |
     ( cd "${NPM_DST}" && tar xvf - && npm publish ) || exit 1
     git commit -m "new release" package.json || exit 1
