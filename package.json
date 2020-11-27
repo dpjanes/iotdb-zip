@@ -4,8 +4,8 @@
         "url": "https://github.com/dpjanes/iotdb-zip/issues"
     }, 
     "dependencies": {
-        "iotdb-helpers": "~3.4.2", 
-        "jszip": "~3.2.2", 
+        "iotdb-helpers": "~3.5.1", 
+        "jszip": "~3.5.0", 
         "mime": "~1.6.0"
     }, 
     "description": "Pipe-oriented ZIP file reading", 
