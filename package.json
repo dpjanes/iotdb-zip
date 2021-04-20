@@ -4,8 +4,8 @@
         "url": "https://github.com/dpjanes/iotdb-zip/issues"
     }, 
     "dependencies": {
-        "iotdb-helpers": "~3.5.1", 
-        "jszip": "~3.5.0", 
+        "iotdb-helpers": "^3.5.9", 
+        "jszip": "~3.6.0", 
         "mime": "~1.6.0"
     }, 
     "description": "Pipe-oriented ZIP file reading", 
@@ -23,5 +23,5 @@
         "cover": "nyc --reporter=html mocha --recursive", 
         "test": "mocha --recursive --bail"
     }, 
-    "version": "1.0.7"
+    "version": "1.0.8"
 }
