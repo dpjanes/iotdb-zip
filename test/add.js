@@ -46,6 +46,9 @@ describe("all", function() {
                 const got = _.keys(sd.zip.files)
                 const want = [ FILENAMES[0], ]
 
+                got.sort()
+                want.sort()
+
                 assert.deepEqual(got, want)
             })
 
@@ -60,6 +63,30 @@ describe("all", function() {
             .make(sd => {
                 const got = _.keys(sd.zip.files)
                 const want = FILENAMES
+
+                got.sort()
+                want.sort()
+
+                assert.deepEqual(got, want)
+            })
+
+            .end(done, {})
+    })
+    it("add.all works with fs", function(done) {
+        _.promise()
+            .add("path", path.join(__dirname, "data", "contents"))
+            .then(fs.list)
+
+            .add("zip$root", path.join(__dirname, "data"))
+            .then(zip.initialize)
+            .then(zip.add.all)
+
+            .make(sd => {
+                const got = _.keys(sd.zip.files)
+                const want = FILENAMES
+
+                got.sort()
+                want.sort()
 
                 assert.deepEqual(got, want)
             })
