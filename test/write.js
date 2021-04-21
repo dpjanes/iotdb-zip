@@ -39,7 +39,7 @@ describe("write", function() {
     let documents = {}
 
     before(function(done) {
-        _.promise.make({
+        _.promise({
             paths: filenames.map(filename => path.join(__dirname, "data", filename)),
         })
             .then(fs.all(fs.read.buffer))
@@ -47,84 +47,79 @@ describe("write", function() {
                 sd.outputs.forEach(output => {
                     documents["contents/" + path.basename(output.path)] = output.document;
                 })
-
-                done()
             })
-            .catch(done)
+            .end(done, {})
     })
 
     describe("write", function() {
         it("write icon.png as binary - works", function(done) {
             const filename = "contents/icon.png";
 
-            _.promise.make()
+            _.promise()
                 .then(zip.initialize)
-                .then(sd => _.d.update(sd, {
+                .add({
                     path: filename,
                     document: documents[filename],
-                }))
+                })
                 .then(zip.write)
-                .then(_.promise.block(sd => {
+                .make(sd => {
                     assert.ok(sd.zip)
                     assert.deepEqual(_.keys(sd.zip.files), [ filename ])
-                }))
+                })
                 .then(zip.read)
-                .then(_.promise.block(sd => {
+                .make(sd => {
                     assert.ok(_.is.Buffer(sd.document))
                     assert.ok(sd.exists)
                     assert.deepEqual(sd.document, documents[filename]);
-                }))
-                .then(_.promise.done(done))
-                .catch(done)
+                })
+                .end(done, {})
         })
         it("write unicode.txt as binary - works", function(done) {
             const filename = "contents/unicode.txt";
 
-            _.promise.make()
+            _.promise()
                 .then(zip.initialize)
-                .then(sd => _.d.update(sd, {
+                .add({
                     path: filename,
                     document: documents[filename].toString("utf-8"),
                     document_encoding: "utf-8",
-                }))
+                })
                 .then(zip.write)
-                .then(_.promise.block(sd => {
+                .make(sd => {
                     assert.ok(sd.zip)
                     assert.deepEqual(_.keys(sd.zip.files), [ filename ])
-                }))
+                })
                 .then(zip.read.buffer)
-                .then(_.promise.block(sd => {
+                .make(sd => {
                     assert.ok(_.is.Buffer(sd.document))
                     assert.ok(sd.exists)
                     assert.deepEqual(sd.document, documents[filename]);
-                }))
-                .then(_.promise.done(done))
-                .catch(done)
+                })
+                .end(done, {})
         })
     })
     describe("write.utf8", function() {
         it("write unicode.txt as utf8 - works", function(done) {
             const filename = "contents/unicode.txt";
 
-            _.promise.make()
+            _.promise()
                 .then(zip.initialize)
-                .then(sd => _.d.update(sd, {
+                .add({
                     path: filename,
                     document: documents[filename].toString("utf-8"),
-                }))
+                })
                 .then(zip.write.utf8)
-                .then(_.promise.block(sd => {
+                .make(sd => {
                     assert.ok(sd.zip)
                     assert.deepEqual(_.keys(sd.zip.files), [ filename ])
-                }))
+                })
                 .then(zip.read.utf8)
-                .then(_.promise.block(sd => {
+                .make(sd => {
                     assert.ok(_.is.String(sd.document))
                     assert.ok(sd.exists)
                     assert.deepEqual(sd.document, documents[filename].toString("utf-8"));
-                }))
-                .then(_.promise.done(done))
-                .catch(done)
+                })
+                .end(done, {})
         })
     })
 })

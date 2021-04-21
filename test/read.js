@@ -39,7 +39,7 @@ describe("read", function() {
     let documents = {}
 
     before(function(done) {
-        _.promise.make({
+        _.promise({
             paths: filenames.map(filename => path.join(__dirname, "data", filename)),
         })
             .then(fs.all(fs.read.buffer))
@@ -47,142 +47,132 @@ describe("read", function() {
                 sd.outputs.forEach(output => {
                     documents["contents/" + path.basename(output.path)] = output.document;
                 })
-
-                done()
             })
-            .catch(done)
+            .end(done, {})
     })
 
     describe("read", function() {
         it("read BINARY - works", function(done) {
             const filename = "contents/icon.png";
 
-            _.promise.make()
+            _.promise()
                 .then(zip.initialize.open.p(zipfile))
                 .then(sd => _.d.add(sd, "path", filename))
                 .then(zip.read)
-                .then(_.promise.block(sd => {
+                .make(sd => {
                     assert.ok(_.is.Buffer(sd.document))
                     assert.ok(sd.exists)
                     assert.deepEqual(sd.document, documents[filename]);
-                }))
-                .then(_.promise.done(done))
-                .catch(done)
+                })
+                .end(done, {})
         })
         it("read unicode - works", function(done) {
             const filename = "contents/unicode.txt";
 
-            _.promise.make()
+            _.promise()
                 .then(zip.initialize.open.p(zipfile))
                 .then(sd => _.d.add(sd, "path", filename))
                 .then(zip.read)
-                .then(_.promise.block(sd => {
+                .make(sd => {
                     assert.ok(_.is.Buffer(sd.document))
                     assert.ok(sd.exists)
                     assert.deepEqual(sd.document, documents[filename]);
-                }))
-                .then(_.promise.done(done))
-                .catch(done)
+                })
+                .end(done, {})
         })
     })
     describe("read.buffer", function() {
         it("read BINARY - works", function(done) {
             const filename = "contents/icon.png";
 
-            _.promise.make()
+            _.promise()
                 .then(zip.initialize.open.p(zipfile))
                 .then(sd => _.d.add(sd, "path", filename))
                 .then(zip.read.buffer)
-                .then(_.promise.block(sd => {
+                .make(sd => {
                     assert.ok(_.is.Buffer(sd.document))
                     assert.ok(sd.exists)
                     assert.deepEqual(sd.document, documents[filename]);
-                }))
-                .then(_.promise.done(done))
-                .catch(done)
+                })
+                .end(done, {})
         })
         it("read utf8 text file as buffer - works", function(done) {
             const filename = "contents/unicode.txt";
 
-            _.promise.make()
+            _.promise()
                 .then(zip.initialize.open.p(zipfile))
                 .then(sd => _.d.add(sd, "path", filename))
                 .then(zip.read.buffer)
-                .then(_.promise.block(sd => {
+                .make(sd => {
                     assert.ok(_.is.Buffer(sd.document))
                     assert.ok(sd.exists)
                     assert.deepEqual(sd.document, documents[filename])
-                }))
-                .then(_.promise.done(done))
-                .catch(done)
+                })
+                .end(done, {})
         })
     })
     describe("read.utf8", function() {
         it("read utf8 text file - works", function(done) {
             const filename = "contents/unicode.txt";
 
-            _.promise.make()
+            _.promise()
                 .then(zip.initialize.open.p(zipfile))
                 .then(sd => _.d.add(sd, "path", filename))
                 .then(zip.read.utf8)
-                .then(_.promise.block(sd => {
+                .make(sd => {
                     assert.ok(_.is.String(sd.document))
                     assert.ok(sd.exists)
                     assert.deepEqual(sd.document, documents[filename].toString("utf-8"))
-                }))
-                .then(_.promise.done(done))
-                .catch(done)
+                })
+                .end(done, {})
         })
         /*
         it("read utf8 text file - works with otherwise", function(done) {
             const filename = "contents/DOESNOTEXIST";
             const contents = "Hello World";
 
-            _.promise.make()
+            _.promise()
                 .then(zip.initialize.open.p(zipfile))
                 .then(sd => _.d.add(sd, "path", filename))
                 .then(sd => _.d.add(sd, "otherwise", contents))
                 .then(zip.read.utf8)
-                .then(_.promise.block(sd => {
+                .make(sd => {
                     assert.ok(_.is.String(sd.document))
                     assert.ok(!sd.exists)
                     assert.deepEqual(sd.document, contents)
-                }))
-                .then(_.promise.done(done))
-                .catch(done)
+                })
+                .end(done, {})
         })
         */
         it("read BINARY text as utf8 - works, half-assedly", function(done) {
             const filename = "contents/icon.png";
 
-            _.promise.make()
+            _.promise()
                 .then(zip.initialize.open.p(zipfile))
                 .then(sd => _.d.add(sd, "path", filename))
                 .then(zip.read.utf8)
-                .then(_.promise.block(sd => {
+                .make(sd => {
                     assert.ok(_.is.String(sd.document))
                     assert.ok(sd.exists)
                     assert.deepEqual(sd.document, documents[filename].toString("utf-8"))
-                }))
-                .then(_.promise.done(done))
-                .catch(done)
+                })
+                .end(done, {})
         })
     })
     describe("read.json", function() {
         it("read JSON text file", function(done) {
             const filename = "contents/a.json";
 
-            _.promise.make()
+            _.promise()
                 .then(zip.initialize.open.p(zipfile))
                 .then(sd => _.d.add(sd, "path", filename))
                 .then(zip.read.json)
-                .then(_.promise.block(sd => {
+                .make(sd => {
                     assert.ok(_.is.JSON(sd.json))
                     assert.ok(sd.exists)
                     assert.deepEqual(sd.json, JSON.parse(documents[filename].toString("utf-8")))
-                }))
-                .then(_.promise.done(done))
-                .catch(done)
+                })
+                .end(done, {})
         })
     })
 })

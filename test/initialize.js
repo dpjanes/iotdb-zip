@@ -39,55 +39,51 @@ describe("initialize", function() {
 
     describe("initialize", function() {
         it("no parameters - works", function(done) {
-            _.promise.make()
+            _.promise()
                 .then(zip.initialize)
-                .then(_.promise.block(sd => {
+                .make(sd => {
                     assert.ok(sd.zip)
                     assert.deepEqual(sd.zip.files, {})
-                }))
-                .then(_.promise.done(done))
-                .catch(done)
+                })
+                .end(done, {})
         })
     })
     describe("initialize.load", function() {
         it("document parameter - works", function(done) {
-            _.promise.make({
+            _.promise({
                 path: zipfile,
             })
                 .then(fs.read.buffer)
                 .then(zip.initialize.load)
-                .then(_.promise.block(sd => {
+                .make(sd => {
                     assert.ok(sd.zip)
                     assert.deepEqual(_.keys(sd.zip.files).sort(), filenames)
-                }))
-                .then(_.promise.done(done))
-                .catch(done)
+                })
+                .end(done, {})
         })
     })
     describe("initialize.open", function() {
         it("path parameter - works", function(done) {
-            _.promise.make({
+            _.promise({
                 path: zipfile,
             })
                 .then(zip.initialize.open)
-                .then(_.promise.block(sd => {
+                .make(sd => {
                     assert.ok(sd.zip)
                     assert.deepEqual(_.keys(sd.zip.files).sort(), filenames)
-                }))
-                .then(_.promise.done(done))
-                .catch(done)
+                })
+                .end(done, {})
         })
     })
     describe("initialize.open.p", function() {
         it("path parameter - works", function(done) {
-            _.promise.make()
+            _.promise()
                 .then(zip.initialize.open.p(zipfile))
-                .then(_.promise.block(sd => {
+                .make(sd => {
                     assert.ok(sd.zip)
                     assert.deepEqual(_.keys(sd.zip.files).sort(), filenames)
-                }))
-                .then(_.promise.done(done))
-                .catch(done)
+                })
+                .end(done, {})
         })
     })
 })
